@@ -96,9 +96,9 @@ namespace Catalog.API.Controllers
                 await _productRepository.Create(model);
                 return CreatedAtRoute(nameof(GetProductById), model.Id, model);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return Problem();
+                return Problem(ex.Message);
             }
         }
 
