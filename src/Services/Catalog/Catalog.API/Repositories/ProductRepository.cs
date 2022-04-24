@@ -33,7 +33,7 @@ namespace Catalog.API.Repositories
 
         public async Task<IEnumerable<Product>> GetProductsByName(string name)
         {
-            FilterDefinition<Product> filter = Builders<Product>.Filter.ElemMatch(p => p.Name, name);
+            FilterDefinition<Product> filter = Builders<Product>.Filter.Where(p => p.Name.ToLower().StartsWith(name.ToLower()));
             return await _context.Products.Find(filter).ToListAsync();
         }
 
