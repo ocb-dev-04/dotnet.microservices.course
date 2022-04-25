@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 
 using Catalog.API.Entities;
 using Catalog.API.Repositories;
@@ -18,14 +17,11 @@ namespace Catalog.API.Controllers
         #region Props & Ctor
 
         private readonly IProductRepository _productRepository;
-        private readonly ILogger<CatalogsController> _logger;
 
         public CatalogsController(
-            IProductRepository productRepository,
-            ILogger<CatalogsController> logger)
+            IProductRepository productRepository)
         {
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         #endregion
