@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   catalogdb:
-    container_name: catalogdb  
+    container_name: catalog_db
     restart: always
     ports:
       - "27017:27017"
@@ -10,13 +10,36 @@ services:
       - mongo_data:/data/db
 
   basketdb:
-    container_name: basketdb  
+    container_name: basket_db
     restart: always
     ports:
       - "6379:6379"
 
+  discountdb:
+    container_name: discount_db
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin1234
+      - POSTGRES_DB=DiscountDb
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  pgadmin:
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin1234
+    restart: always
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/root/.pgadmin 
+
   portainer:
-    container_name: portainer
+    container_name: portainer_ce
     restart: always
     ports:
       - "8080:8000"
@@ -31,7 +54,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
     depends_on:
-      - catalogdb
+      - catalog_db
     ports:
       - "8000:80"
 
@@ -41,6 +64,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSetting:ConnectionString=basketdb:6379"
     depends_on:
-      - basketdb
+      - basket_db
     ports:
       - "8001:80"
