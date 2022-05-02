@@ -48,7 +48,11 @@ namespace Basket.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ShoppingCart))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Update([FromBody] ShoppingCart model)
-            => Ok(await _basketRepository.UpdateBasket(model));
+        {
+            // TODO: Comunicate with Discount.Grpc and calculate latest price of products into shopping cart
+
+            return Ok(await _basketRepository.UpdateBasket(model));
+        }
 
         /// <summary>
         /// 
@@ -60,6 +64,8 @@ namespace Basket.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Delete([FromRoute] string userName)
         {
+            // TODO: Comunicate with Discount.Grpc and calculate latest price of products into shopping cart
+
             await _basketRepository.DeleteBasket(userName);
             return Ok();
         }
