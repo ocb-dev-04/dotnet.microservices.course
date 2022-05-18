@@ -54,7 +54,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
     depends_on:
-      - catalog_db
+      - catalogdb
     ports:
       - "8000:80"
 
@@ -63,9 +63,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSetting:ConnectionString=basketdb:6379"
-      - "GrpcSettings:DiscountUrl=discount.grpc"
+      - "GrpcSettings:DiscountUrl=discount.grpc:8003"
     depends_on:
-      - basket_db
+      - basketdb
     ports:
       - "8001:80"
 
@@ -75,7 +75,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=admin;Password=admin1234;"
     depends_on:
-      - discount_db
+      - discountdb
     ports:
       - "8002:80"
 
@@ -85,6 +85,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=admin;Password=admin1234;"
     depends_on:
-      - discount_db
+      - discountdb
     ports:
       - "8003:80"
