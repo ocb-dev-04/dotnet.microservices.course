@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.Cache.CacheManager;
+
 using Microsoft.Extensions.Configuration;
 using System;
 
@@ -21,7 +23,11 @@ namespace OcelotApiGateway
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddOcelot();
+            services.AddOcelot()
+                .AddCacheManager(x =>
+                {
+                    x.WithDictionaryHandle();
+                });
         }
 
         public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
