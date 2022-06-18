@@ -23,11 +23,7 @@ namespace OcelotApiGateway
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddOcelot()
-                .AddCacheManager(x =>
-                {
-                    x.WithDictionaryHandle();
-                });
+            services.AddOcelot().AddCacheManager(x => x.WithDictionaryHandle());
         }
 
         public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
